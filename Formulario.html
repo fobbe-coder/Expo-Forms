@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário ETEC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #f9f9f9; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease; 
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            transform: translateY(1px); 
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        #contador {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e9f5ff; 
+            border: 2px solid #007bff;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: #007bff;
+            font-size: 18px;
+        }
+        #status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        #status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        #status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+       
+        #adminSection {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+        }
+        #adminSection h3 {
+            text-align: center;
+            color: #856404;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        #adminSection input[type="password"], #adminSection input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        #adminSection input[type="password"]:focus, #adminSection input[type="number"]:focus {
+            border-color: #ffc107;
+            outline: none;
+        }
+        #adminSection button {
+            background-color: #ffc107;
+            color: #212529;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        #adminSection button:hover {
+            background-color: #e0a800;
+        }
+        #adminSection .close-admin {
+            background-color: #dc3545;
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+        }
+        #adminSection .close-admin:hover {
+            background-color: #c82333;
+        }
+        #adminLink {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #6c757d;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        #adminLink:hover {
+            color: #007bff;
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulário de Cadastro Expocuca</h2>
+    <form id="meuFormulario">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required placeholder="(xx) xxxxx-xxxx">
+
+        <label for="tipoUsuario">Tipo de Visitante:</label>
+        <select id="tipoUsuario" name="tipoUsuario" required>
+            <option value="">Selecione seu tipo</option>
+            <option value="aluno">Aluno</option>
+            <option value="responsavel">Responsável</option>
+            <option value="professor">Professor</option>
+        </select>
+
+        <!-- Novo campo de gênero adicionado -->
+        <label for="genero">Gênero:</label>
+        <select id="genero" name="genero" required>
+            <option value="">Selecione seu gênero</option>
+            <option value="homem">Homem</option>
+            <option value="mulher">Mulher</option>
+            <option value="trans">Trans</option>
+            <option value="outro">Outro</option>
+        </select>
+
+        <button type="submit" id="submitBtn">Enviar</button>
+    </form>
+
+    <div id="contador">Contador: 0</div>
+    <div id="status"></div>
+
+    
+    <div id="adminLink" onclick="accessAdmin()">Acesso Admin (apenas para desenvolvedor)</div>
+
+    
+    <div id="adminSection">
+        <h3>Painel de Administração - Gerenciar Contador</h3>
+        
+        <label for="adminPassword">Senha de Acesso:</label>
+        <input type="password" id="adminPassword" placeholder="Digite a senha para confirmar">
+        <button onclick="confirmAdminAccess()">Confirmar Acesso</button>
+
+        <div id="adminContadorSection" style="display: none;">
+            <label for="novoContador">Definir Novo Valor do Contador:</label>
+            <input type="number" id="novoContador" min="0" placeholder="Digite o novo valor (ex: 0 para reset)">
+            <button onclick="updateContadorAdmin()">Atualizar Contador</button>
+            <button class="close-admin" onclick="closeAdminSection()">Fechar Painel</button>
+        </div>
+    </div>
+
+    <script>
+        let contador = localStorage.getItem('contador') ? parseInt(localStorage.getItem('contador')) : 0;  // Contador atual é local. Para torná-lo global, use uma API externa.
+        const elementoContador = document.getElementById('contador');
+        const statusDiv = document.getElementById('status');
+        const submitBtn = document.getElementById('submitBtn');
+        elementoContador.textContent = `Contador: ${contador}`;
+
+        // Para tornar o contador global:
+        // 1. Substitua localStorage por chamadas a uma API (ex.: fetch para um endpoint que armazena o contador em um servidor).
+        // 2. Exemplo: No carregamento da página, faça um fetch para obter o contador atual do servidor.
+        // 3. Atualize o contador no servidor após cada envio.
+        // Isso requer um backend (ex.: Node.js com Express e um banco de dados).
+
+        const botaoEnviar = document.querySelector('button[type="submit"]');
+
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 11) {
+                value = value.replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2$3-$4');
+            } else if (value.length >= 7) {
+                value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+            } else if (value.length >= 2) {
+                value = value.replace(/(\d{2})/, '($1) ');
+            }
+            e.target.value = value;
+        });
+
+        botaoEnviar.addEventListener('click', async function(event) {
+            event.preventDefault();
+            
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const tipoUsuario = document.getElementById('tipoUsuario').value;
+            const genero = document.getElementById('genero').value;  // Novo campo adicionado
+            
+            if (nome === '' || email === '' || telefone === '' || tipoUsuario === '' || genero === '') {
+                showStatus('Por favor, preencha todos os campos obrigatórios.', 'error');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            
+            try {
+                const formData = new FormData();
+                formData.append('Nome', nome);
+                formData.append('Email', email);
+                formData.append('Telefone', telefone);
+                formData.append('Tipo', tipoUsuario);
+                formData.append('Genero', genero);  // Adicionado ao envio
+                formData.append('Contador', contador + 1);  // Envia o contador incrementado
+
+                const response = await fetch('https://api.sheetmonkey.io/form/jWyADATPoHihYH9dX5zHE2', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    contador++;  // Incrementa localmente, mas considere atualizar em um servidor para globalidade
+                    localStorage.setItem('contador', contador);  // Armazena localmente por enquanto
+                    elementoContador.textContent = `Contador: ${contador}`;
+                    
+                    document.getElementById('nome').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('telefone').value = '';
+                    document.getElementById('tipoUsuario').value = '';
+                    document.getElementById('genero').value = '';  // Limpa o novo campo
+                    
+                    showStatus(`Formulário enviado com sucesso! Total de envios: ${contador}`, 'success');
+                    console.log(`Formulário enviado! Nome: ${nome}, E-mail: ${email}, Telefone: ${telefone}, Tipo: ${tipoUsuario}, Gênero: ${genero}, Contador: ${contador}`);
+                } else {
+                    throw new Error('Erro na resposta da API');
+                }
+            } catch (error) {
+                showStatus('Erro ao enviar o formulário. Tente novamente.', 'error');
+                console.error('Erro no envio:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Enviar';
+            }
+        });
+
+        function accessAdmin() {
+            document.getElementById('adminSection').style.display = 'block';
+            document.getElementById('adminLink').style.display = 'none'; 
+        }
+
+        function confirmAdminAccess() {
+            const senha = document.getElementById('adminPassword').value;
+            const SENHA_CORRETA = 'admin123'; 
+            
+            if (senha === SENHA_CORRETA) {
+                document.getElementById('adminPassword').style.display = 'none'; 
+                document.querySelector('#adminSection button[onclick="confirmAdminAccess()"]').style.display = 'none'; 
+                document.getElementById('adminContadorSection').style.display = 'block';
+                document.getElementById('novoContador').value = contador; 
+                showStatus('Acesso admin concedido! Agora você pode gerenciar o contador.', 'success');
+            } else {
+                showStatus('Senha incorreta. Acesso negado.', 'error');
+                document.getElementById('adminPassword').value = ''; 
+            }
+        }
+
+        function updateContadorAdmin() {
+            const novoValor = parseInt(document.getElementById('novoContador').value);
+            if (isNaN(novoValor) || novoValor < 0) {
+                showStatus('Por favor, insira um valor numérico válido (maior ou igual a 0).', 'error');
+                return;
+            }
+            
+            if (confirm(`Tem certeza que deseja definir o contador para ${novoValor}?`)) {
+                contador = novoValor;
+                localStorage.setItem('contador', contador);  // Armazena localmente; para global, use uma API
+                elementoContador.textContent = `Contador: ${contador}`;
+                showStatus(`Contador atualizado para ${contador}!`, 'success');
+                console.log(`Contador atualizado para: ${contador}`);
+            }
+        }
+
+        function closeAdminSection() {
+            document.getElementById('adminSection').style.display = 'none';
+            document.getElementById('adminLink').style.display = 'block';   
+            
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminPassword').style.display = 'block';
+            document.querySelector('#adminSection button[onclick="confirmAdminAccess()"]').style.display = 'block';
+            document.getElementById('adminContadorSection').style.display = 'none';
+        }
+
+        function showStatus(message, type) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
